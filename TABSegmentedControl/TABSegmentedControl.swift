@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Delegate for handling interactions
+ */
 @objc public protocol TABSegmentedControlDelegate
 {
     func segmentedControl (_ segmentedControl : TABSegmentedControl , didSelectSegmentAtIndex index : Int)
@@ -16,11 +19,15 @@ import UIKit
 open class TABSegmentedControl : UIScrollView
 {
     // ---------------------------------------------------------------------------
-    // MARK: - Properties
+    // MARK: - Class Properties
     // ---------------------------------------------------------------------------
 
     private static let DEFAULT_SEGMENT_WIDTH_PROPORTION : CGFloat = 0.4
     private static let DEFAULT_TINT_COLOR : UIColor = .blue
+    
+    // ---------------------------------------------------------------------------
+    // MARK: - Properties
+    // ---------------------------------------------------------------------------
     
     private var _controlDelegate : TABSegmentedControlDelegate?
     private var _segmentTitles : Array<String> = []
@@ -112,6 +119,9 @@ open class TABSegmentedControl : UIScrollView
         self.setup()
     }
     
+    /**
+     Layout Subviews
+     */
     override open func layoutSubviews ()
     {
         super.layoutSubviews()
@@ -214,6 +224,9 @@ open class TABSegmentedControl : UIScrollView
     // MARK: - Segment Events
     // ---------------------------------------------------------------------------
     
+    /**
+     User tapped a segment button
+     */
     @objc func segmentTapped (segment : UIButton)
     {
         self.index = segment.tag
