@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc public protocol TABSegmentControlDelegate
+@objc public protocol TABSegmentedControlDelegate
 {
     func segmentedControl (_ segmentedControl : TABSegmentedControl , didSelectSegmentAtIndex index : Int)
 }
@@ -22,7 +22,7 @@ open class TABSegmentedControl : UIScrollView
     private static let DEFAULT_SEGMENT_WIDTH_PROPORTION : CGFloat = 0.4
     private static let DEFAULT_TINT_COLOR : UIColor = .blue
     
-    private var _controlDelegate : TABSegmentControlDelegate?
+    private var _controlDelegate : TABSegmentedControlDelegate?
     private var _segmentTitles : Array<String> = []
     private var _index : Int = 0
     private var _font : UIFont = UIButton().titleLabel!.font
@@ -31,7 +31,7 @@ open class TABSegmentedControl : UIScrollView
     // MARK: - Getters / Setters
     // ---------------------------------------------------------------------------
     
-    open var controlDelegate : TABSegmentControlDelegate? {
+    open var controlDelegate : TABSegmentedControlDelegate? {
         get { return self._controlDelegate }
         set { self._controlDelegate = newValue }
     }
@@ -82,6 +82,16 @@ open class TABSegmentedControl : UIScrollView
     // ---------------------------------------------------------------------------
     
     /**
+     Init
+     */
+    public init ()
+    {
+        super.init(frame: CGRect.zero)
+        
+        self.setup()
+    }
+
+    /**
      Init with segment titles
      */
     convenience init (withSegmentTitles titles : Array<String>)
@@ -89,6 +99,16 @@ open class TABSegmentedControl : UIScrollView
         self.init()
         
         self.segmentTitles = titles
+        self.setup()
+    }
+    
+    /**
+     Init with coder
+     */
+    required public init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        
         self.setup()
     }
     
